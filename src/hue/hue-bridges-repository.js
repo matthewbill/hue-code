@@ -1,11 +1,7 @@
+/* eslint-disable class-methods-use-this */
 const axios = require('axios');
 
 class HueBridgeRepository {
-
-  test() {
-    
-  }
-
   async getHueBridges() {
     const discoveryUrl = 'https://discovery.meethue.com/';
     try {
@@ -13,7 +9,7 @@ class HueBridgeRepository {
       // Mapping
       const entities = result.data;
       return entities;
-    } catch(error) {
+    } catch (error) {
       throw new Error(error);
     }
   }
