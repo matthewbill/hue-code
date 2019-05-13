@@ -13,14 +13,43 @@
     "activationEvents": [
         "*"
     ],
-    "main": "./extension",
+    "main": "./extension.js",
     "contributes": {
         "commands": [
             {
                 "command": "huecode.displayMenu",
                 "title": "Hue Code Menu"
             }
-        ]
+        ],
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "hue-code",
+                    "title": "Hue Code",
+                    "icon": "media/light-bulb.svg"
+                }
+            ]
+        },
+        "views": {
+            "hue-code": [
+                {
+					"id": "bridges",
+					"name": "Bridges"
+                },
+				{
+					"id": "groups",
+					"name": "Groups"
+                },
+                {
+					"id": "lights",
+					"name": "Lights"
+                },
+                {
+					"id": "sensors",
+					"name": "Sensors"
+				}
+            ]
+        }
     },
     "scripts": {
         "postinstall": "node ./node_modules/vscode/bin/install",
