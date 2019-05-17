@@ -2,9 +2,9 @@
 const vscode = require('vscode');
 
 class HueSensorsProvider {
-  constructor(hueSensorsRepository) {
+  constructor(sensors) {
     const self = this;
-    self.hueSensorsRepository = hueSensorsRepository;
+    self.sensors = sensors;
   }
 
   getTreeItem(element) {
@@ -15,8 +15,7 @@ class HueSensorsProvider {
     const self = this;
     let items = [];
     try {
-      const sensors = await self.hueSensorsRepository.getSensors();
-      items = sensors.map(sensor => new vscode.TreeItem(sensor.name, vscode.TreeItemCollapsibleState.None));
+      items = global.sensors.map(sensor => new vscode.TreeItem(sensor.name, vscode.TreeItemCollapsibleState.None));
     } catch (error) {
       throw error;
     }

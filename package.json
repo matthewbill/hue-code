@@ -19,6 +19,18 @@
             {
                 "command": "huecode.displayMenu",
                 "title": "Hue Code Menu"
+            },
+            {
+				"command": "huecode.refreshGroups",
+				"title": "Refresh",
+				"icon": {
+					"light": "resources/light/refresh.svg",
+					"dark": "resources/dark/refresh.svg"
+				}
+            },
+            {
+				"command": "huecode.viewGroupInfo",
+                "title": "View Info"
             }
         ],
         "viewsContainers": {
@@ -49,6 +61,22 @@
 					"name": "Sensors"
 				}
             ]
+        },
+        "menus": {
+            "view/title": [
+				{
+					"command": "huecode.refreshGroups",
+                    "when": "view == groups",
+                    "group": "navigation"
+				}
+            ],
+            "view/item/context": [
+				{
+					"command": "huecode.viewGroupInfo",
+                    "when": "view == hue-code",
+                    "group": "inline"
+				}
+			]
         }
     },
     "scripts": {

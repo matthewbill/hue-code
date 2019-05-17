@@ -5,14 +5,14 @@ class HueUserRepository {
 
   static get LINK_BUTTON_NOT_PRESSED_ERROR_CODE() { return 'link-button-not-pressed'; }
 
-  constructor(options) {
+  constructor(configuration) {
     const self = this;
-    self.bridgeIp = options.bridgeIp;
+    self.configuration = configuration;
   }
 
   async getUser() {
     const self = this;
-    const url = `http://${self.bridgeIp}/api`;
+    const url = `http://${self.configuration.bridgeIp}/api`;
     try {
       const result = await axios.post(url, {
         devicetype: 'hue-code',

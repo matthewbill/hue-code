@@ -2,9 +2,9 @@
 const vscode = require('vscode');
 
 class HueLightsProvider {
-  constructor(hueLightsRepository) {
+  constructor(lights) {
     const self = this;
-    self.hueLightsRepository = hueLightsRepository;
+    self.lights = lights;
   }
 
   getTreeItem(element) {
@@ -15,8 +15,13 @@ class HueLightsProvider {
     const self = this;
     let items = [];
     try {
-      const lights = await self.hueLightsRepository.getLights();
-      items = lights.map(light => new vscode.TreeItem(light.name, vscode.TreeItemCollapsibleState.None));
+      items = global.lights.map((light) => {
+        const treeItem = new vscode.TreeItem(light.name, vscode.TreeItemCollapsibleState.None);
+        treeItem.id = light.id;
+        treeItem.tooltip = light.id;
+        treeItem.description = light.type;
+        return treeItem;
+      });
     } catch (error) {
       throw error;
     }

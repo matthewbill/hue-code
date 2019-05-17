@@ -2,15 +2,14 @@
 const axios = require('axios');
 
 class HueSensorsRepository {
-  constructor(options) {
+  constructor(configuration) {
     const self = this;
-    self.bridgeIp = options.bridgeIp;
-    self.userId = options.userId;
+    self.configuration = configuration;
   }
 
   async getSensors() {
     const self = this;
-    const url = `http://${self.bridgeIp}/api/${self.userId}/sensors`;
+    const url = `http://${self.configuration.bridgeIp}/api/${self.configuration.userId}/sensors`;
     try {
       const result = await axios.get(url);
       const sensors = Object.values(result.data);
