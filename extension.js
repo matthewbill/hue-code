@@ -301,6 +301,10 @@ async function loadHueResources() {
   }
 
   // Refresh providers
+  hueGroupsProvider.refresh();
+  hueLightsProvider.refresh();
+  hueBridgesProvider.refresh();
+  hueSensorsProvider.refresh();
 }
 
 async function testConnection() {

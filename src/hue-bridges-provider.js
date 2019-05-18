@@ -6,6 +6,13 @@ class HueBridgesProvider {
   constructor(bridges) {
     const self = this;
     self.bridges = bridges;
+    self.eventEmitter = new vscode.EventEmitter();
+    self.onDidChangeTreeData = self.eventEmitter.event;
+  }
+
+  refresh() {
+    const self = this;
+    self.eventEmitter.fire();
   }
 
   getTreeItem(element) {

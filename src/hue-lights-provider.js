@@ -5,6 +5,13 @@ class HueLightsProvider {
   constructor(lights) {
     const self = this;
     self.lights = lights;
+    self.eventEmitter = new vscode.EventEmitter();
+    self.onDidChangeTreeData = self.eventEmitter.event;
+  }
+
+  refresh() {
+    const self = this;
+    self.eventEmitter.fire();
   }
 
   getTreeItem(element) {

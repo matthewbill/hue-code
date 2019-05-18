@@ -7,10 +7,13 @@ class HueGroupsProvider {
   constructor(configuration) {
     const self = this;
     self.configuration = configuration;
+    self.eventEmitter = new vscode.EventEmitter();
+    self.onDidChangeTreeData = self.eventEmitter.event;
   }
 
   refresh() {
-
+    const self = this;
+    self.eventEmitter.fire();
   }
 
   getTreeItem(element) {

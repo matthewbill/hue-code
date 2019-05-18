@@ -5,6 +5,13 @@ class HueSensorsProvider {
   constructor(sensors) {
     const self = this;
     self.sensors = sensors;
+    self.eventEmitter = new vscode.EventEmitter();
+    self.onDidChangeTreeData = self.eventEmitter.event;
+  }
+
+  refresh() {
+    const self = this;
+    self.eventEmitter.fire();
   }
 
   getTreeItem(element) {
