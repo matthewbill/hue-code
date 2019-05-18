@@ -28,7 +28,7 @@ const hueSensorsRepository = new HueSensorsRepository(configuration);
 const hueBridgesRepository = new HueBridgesRepository();
 global.hueUsersRepository = new HueUsersRepository(configuration);
 
-const hueGroupsProvider = new HueGroupsProvider(global.groups);
+const hueGroupsProvider = new HueGroupsProvider(configuration);
 const hueLightsProvider = new HueLightsProvider(global.lights);
 const hueSensorsProvider = new HueSensorsProvider(global.sensors);
 const hueBridgesProvider = new HueBridgesProvider(global.bridges);
@@ -177,42 +177,46 @@ async function enableCommand() {
 
 function disableCommand() {
   global.enabled = false;
-  hueService.flash(getSelectGroupLightIds(), 'red');
-  hueService.flash(getSelectGroupLightIds(), 'red');
+  hueService.doubleFlash(getSelectGroupLightIds(), 'red');
   refreshStateBarText();
 }
 
 function displayMenuCommand(context) {
   const quickPickItems = [];
+  const disconnectLabel = '$(circle-slash) Disconnect';
+  const disableLabel = '$(eye-closed) Disable';
+  const enableLabel = '$(eye) Enable';
+  const connectLabel = '$(plug) Connect';
+  const selectLightGroupLabel = '$(settings) Select Light Group';
   if (global.connected) {
-    quickPickItems.push({ label: '$(cross) Disconnect', description: `Disconnect from your Hue Bridge (${configuration.bridgeIp})` });
+    quickPickItems.push({ label: disconnectLabel, description: `Disconnect from your Hue Bridge (${configuration.bridgeIp})` });
     if (configuration.selectedLightGroup) {
       if (global.enabled) {
-        quickPickItems.push({ label: '$(cross) Disable', description: 'Disable Hue Code' });
+        quickPickItems.push({ label: disableLabel, description: 'Disable Hue Code' });
       } else {
-        quickPickItems.push({ label: '$(cross) Enable', description: 'Enable Hue Code' });
+        quickPickItems.push({ label: enableLabel, description: 'Enable Hue Code' });
       }
     }
     let selectLightGroupDescription = 'To get started, select a light group.';
     if (configuration.selectedLightGroup) {
       selectLightGroupDescription = `${configuration.selectedLightGroup}, currently selected`;
     }
-    quickPickItems.push({ label: 'Select Light Group', description: selectLightGroupDescription });
+    quickPickItems.push({ label: selectLightGroupLabel, description: selectLightGroupDescription });
   } else {
-    quickPickItems.push({ label: '$(plug) Connect', description: 'Connect to your Hue Bridge' });
+    quickPickItems.push({ label: connectLabel, description: 'Connect to your Hue Bridge' });
   }
   vscode.window.showQuickPick(quickPickItems, { placeHolder: 'Select what you want to do' }).then((command) => {
     switch (command.label) {
-      case '$(plug) Connect':
+      case connectLabel:
         connectHueCommand(context);
         break;
-      case '$(cross) Enable':
+      case enableLabel:
         enableCommand();
         break;
-      case '$(cross) Disable':
+      case disableLabel:
         disableCommand();
         break;
-      case 'Select Light Group':
+      case selectLightGroupLabel:
         selectLightGroupCommand();
         break;
       default:
@@ -265,7 +269,7 @@ function registerProviders() {
 function refreshStateBarText() {
   if (global.connected) {
     if (global.enabled) {
-      statusBarItem.text = `$(light-bulb) Hue Code (${configuration.selectedLightGroup})`;
+      statusBarItem.text = `$(light-bulb) Hue Code ($(radio-tower) ${configuration.selectedLightGroup})`;
     } else {
       statusBarItem.text = '$(light-bulb) Hue Code (Disabled)';
     }
@@ -306,8 +310,7 @@ async function testConnection() {
 
       if (getSelectedGroup()) {
         const lightsIds = getSelectGroupLightIds();
-        await hueService.flash(lightsIds, 'blue');
-        await hueService.flash(lightsIds, 'blue');
+        await hueService.doubleFlash(lightsIds, 'blue');
       }
       global.connected = true;
     } catch (error) {
@@ -337,7 +340,7 @@ async function activate(context) {
   registerCommands(context);
   registerStatusBar();
 
-  // call load resources every 30 seconds
+  setInterval(loadHueResources, 30000);
 
   // context.subscriptions.push(items to dispose when deactivated);
 }

@@ -12,9 +12,13 @@ class HueLightsRepository {
     const url = `http://${self.configuration.bridgeIp}/api/${self.configuration.userId}/lights`;
     try {
       const result = await axios.get(url);
-      const groups = Object.values(result.data);
-      for (let i = 0; i < groups.length; i += 1) {
-        groups[i].id = i + 1;
+      const groupIds = Object.keys(result.data);
+      const groups = [];
+      for (let i = 0; i < groupIds.length; i += 1) {
+        const groupId = groupIds[i];
+        const group = result.data[groupId];
+        group.id = groupId;
+        groups.push(group);
       }
       return groups;
     } catch (error) {

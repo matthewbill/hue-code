@@ -4,9 +4,9 @@ let groups = [];
 
 class HueGroupsProvider {
 
-  constructor(lightGroups) {
+  constructor(configuration) {
     const self = this;
-    self.lightGroups = lightGroups;
+    self.configuration = configuration;
   }
 
   refresh() {
@@ -19,11 +19,17 @@ class HueGroupsProvider {
 
   async getChildren(element) {
     const self = this;
+    const selectedLightGroup = self.configuration.selectedLightGroup;
     let items = [];
     if (!element) {
       try {
         items = global.groups.map((group) => {
-          const treeItem = new vscode.TreeItem(group.name, vscode.TreeItemCollapsibleState.Collapsed);
+          let groupName = group.name;
+          if (group.name === selectedLightGroup) {
+            groupName += ' (selected)';
+          }
+          const treeItem = new vscode.TreeItem(groupName, vscode.TreeItemCollapsibleState.Collapsed);
+          
           treeItem.id = group.name;
           treeItem.description = group.type;
           return treeItem;
@@ -34,8 +40,13 @@ class HueGroupsProvider {
     } else {
       const group = global.groups.find(g => g.name === element.id);
       for (let i = 0; i < group.lights.length; i += 1) {
-        const treeItem = new vscode.TreeItem(group.lights[i], vscode.TreeItemCollapsibleState.None);
-        items.push(treeItem);
+        const light = global.lights.find(l => l.id === group.lights[i]);
+        if (light) {
+          const treeItem = new vscode.TreeItem(light.name, vscode.TreeItemCollapsibleState.None);
+          treeItem.tooltip = light.id;
+          treeItem.description = light.type;
+          items.push(treeItem);
+        }
       }
     }
     return items;

@@ -35,6 +35,12 @@ class HueService {
     }
   }
 
+  async doubleFlash(lights, colour) {
+    const self = this;
+    await self.flash(lights, colour);
+    await self.flash(lights, colour);
+  }
+
   async flash(lights, colour) {
     const self = this;
     const state = {
