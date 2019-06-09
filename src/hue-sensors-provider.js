@@ -22,7 +22,14 @@ class HueSensorsProvider {
     const self = this;
     let items = [];
     try {
-      items = global.sensors.map(sensor => new vscode.TreeItem(sensor.name, vscode.TreeItemCollapsibleState.None));
+      items = global.sensors.map((sensor) => {
+        let sensorName = sensor.name;
+        if (sensor.type === 'ZLLTemperature') {
+          sensorName = `${sensorName} (${sensor.state.temperature / 100})`;
+        }
+        const treeItem = new vscode.TreeItem(sensorName, vscode.TreeItemCollapsibleState.None);
+        return treeItem;
+      });
     } catch (error) {
       throw error;
     }

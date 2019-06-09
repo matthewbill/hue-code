@@ -7,6 +7,17 @@ class HueLightsRepository {
     self.configuration = configuration;
   }
 
+  async getLight(id) {
+    const self = this;
+    const url = `http://${self.configuration.bridgeIp}/api/${self.configuration.userId}/lights/${id}`;
+    try {
+      const result = await axios.get(url);
+      return result.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getLights() {
     const self = this;
     const url = `http://${self.configuration.bridgeIp}/api/${self.configuration.userId}/lights`;

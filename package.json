@@ -61,22 +61,6 @@
 					"name": "Sensors"
 				}
             ]
-        },
-        "menus": {
-            "view/title": [
-				{
-					"command": "huecode.refreshGroups",
-                    "when": "view == groups",
-                    "group": "navigation"
-				}
-            ],
-            "view/item/context": [
-				{
-					"command": "huecode.viewGroupInfo",
-                    "when": "view == hue-code",
-                    "group": "inline"
-				}
-			]
         }
     },
     "scripts": {

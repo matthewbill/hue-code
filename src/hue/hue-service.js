@@ -43,6 +43,7 @@ class HueService {
 
   async flash(lights, colour) {
     const self = this;
+    
     const state = {
       on: true,
       sat: 254,
@@ -55,7 +56,8 @@ class HueService {
 
     for (let i = 0; i < lights.length; i += 1) {
       try {
-        await self.hueLightsRepository.updateLightState(lights[i], state);
+        const lightId = lights[i];
+        await self.hueLightsRepository.updateLightState(lightId, state);
       } catch (error) {
         throw error;
       }

@@ -227,7 +227,6 @@ function displayMenuCommand(context) {
 
 function registerCommands(context) {
   context.subscriptions.push(vscode.commands.registerCommand('huecode.displayMenu', () => displayMenuCommand(configuration, context)));
-  vscode.commands.registerCommand('huecode.refreshGroups', () => hueGroupsProvider.refresh());
 }
 
 function getSelectedGroup() {
@@ -242,21 +241,18 @@ function getSelectGroupLightIds() {
 
 function registerActivies() {
 
-  vscode.window.onDidChangeActiveTextEditor(() => { if (global.enabled) { hueService.flash(getSelectGroupLightIds(), 'green'); } });
-  vscode.window.onDidChangeTextEditorSelection(() => { if (global.enabled) { hueService.flash(getSelectGroupLightIds(), 'white'); } });
-  vscode.window.onDidChangeVisibleTextEditors(() => { if (global.enabled) { hueService.flash(getSelectGroupLightIds(), 'red'); } });
+  vscode.window.onDidChangeActiveTextEditor(() => { if (global.enabled) { hueService.flash(getSelectGroupLightIds(), 'white'); } });
 
-  // vscode.window.activeTextEditor.document.isDirty(() => { hueService.flash([9, 16], 'red'); });
+  vscode.debug.onDidStartDebugSession(() => {
+    if (global.enabled) {
+      hueService.processStart(getSelectGroupLightIds(), 'red');
+    }
+  });
 
-  vscode.debug.onDidStartDebugSession(() => { if (global.enabled) { hueService.processStart(getSelectGroupLightIds(), 'blue'); } });
   vscode.debug.onDidTerminateDebugSession(() => { if (global.enabled) { hueService.processEnd(getSelectGroupLightIds()); } });
 
-  vscode.window.onDidOpenTerminal(() => { if (global.enabled) { hueService.flash(getSelectGroupLightIds(), 'white'); } });
+  vscode.window.onDidOpenTerminal(() => { if (global.enabled) { hueService.flash(getSelectGroupLightIds(), 'green'); } });
   vscode.window.onDidCloseTerminal(() => { if (global.enabled) { hueService.flash(getSelectGroupLightIds(), 'red'); } });
-
-  vscode.window.onDidChangeTextEditorSelection((event) => {
-    console.log(event);
-  });
 }
 
 function registerProviders() {
