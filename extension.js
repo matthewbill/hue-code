@@ -88,7 +88,7 @@ async function pollUser(context, progress) {
   for (let i = 1; i < 100; i += 1) {
     try {
       const userId = await global.hueUsersRepository.getUser();
-      context.globalState.update('userId', userId);
+      context.context.globalState.update('userId', userId);
       return userId;
     } catch (error) {
       if (error.message === HueUsersRepository.LINK_BUTTON_NOT_PRESSED_ERROR_CODE) {
@@ -207,6 +207,9 @@ function displayMenuCommand(context) {
   }
   vscode.window.showQuickPick(quickPickItems, { placeHolder: 'Select what you want to do' }).then((command) => {
     switch (command.label) {
+      case disconnectLabel:
+        disconnect();
+        break;
       case connectLabel:
         connectHueCommand(context);
         break;
@@ -223,6 +226,14 @@ function displayMenuCommand(context) {
         break;
     }
   });
+}
+
+function disconnect() {
+  global.enabled = false;
+  global.connected = false;
+  vscode.window.showInformationMessage('Hue Bridge Disconnected.');
+  hueService.doubleFlash(getSelectGroupLightIds(), 'red');
+  refreshStateBarText();
 }
 
 function registerCommands(context) {
@@ -250,7 +261,7 @@ function registerActivies() {
   });
 
   vscode.debug.onDidTerminateDebugSession(() => { if (global.enabled) { hueService.processEnd(getSelectGroupLightIds()); } });
-
+  vscode.debug.onDidChangeBreakpoints(() => { if (global.enabled) { hueService.flash(getSelectGroupLightIds(), 'blue'); } });
   vscode.window.onDidOpenTerminal(() => { if (global.enabled) { hueService.flash(getSelectGroupLightIds(), 'green'); } });
   vscode.window.onDidCloseTerminal(() => { if (global.enabled) { hueService.flash(getSelectGroupLightIds(), 'red'); } });
 }

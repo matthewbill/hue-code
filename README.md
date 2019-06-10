@@ -1,65 +1,49 @@
-# hue-code README
+# Hue Code
 
-This is the README for your extension "hue-code". After writing up a brief description, we recommend including the following sections.
+Make your [Hue smart lights](https://amzn.to/2MC3RVD) come to life as you code! Your room will pulse as you enter debug mode; as you switch text files your room will flash. With Hue Code, you will feel like you are in a Hollywood hacking movie writing an epic multi-headed hydra virus! It also happens to have some great features for exploring your hue network.
 
-## Features
+## Events
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+The following events will change your hue lights:
 
-For example if there is an image subfolder under your extension project workspace:
+| Event                          | Lights      |
+| ------------------------------ | ----------- |
+| `Change Active Text Editor`    | Flash White |
+| `Debug Session`                | Pulse Red   |
+| `Open Terminal`                | Flash Green |
+| `Close Terminal`               | Flash Red   |
+| `Change Breakpoint`            | Flash Blue  |
+| `Enabled`                      | Flash Twice Blue |
+| `Disabled`                     | Flash Twice Red |
 
-\!\[feature X\]\(images/feature-x.png\)
+You can expect to see more along the way soon.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## Pair Hue Bridge
 
-## Requirements
+After you install the plug, you will need to pair your bridge. To do this, first select the status bar menu item.
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+![Disconnected Status Bar](media/status-bar-disconnected.png)
 
-## Extension Settings
+This will display the Hue Code menu and give you the option of connecting to you Hue Bridge.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+![Connect Bridge](media/connect-bridge.png)
 
-For example:
+The discovery of your bridge is fully automatic, but you will need to go and press the button on the top of your bridge when the following progress window appears:
 
-This extension contributes the following settings:
+![Pari Progress](media/pair-progress.png)
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+## Sync Lights
 
-## Known Issues
+By default, Hue Code will not sync your lights. To enable light sync, first select the status bar menu item.
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+![Status Bar](media/status-bar.png)
 
-## Release Notes
+And then enable Hue Code. You can select a different light group at any time.
 
-Users appreciate release notes as you update your extension.
+![Hue Code Menu](media/light-group.png)
 
-### 1.0.0
+## View Hue Resources
 
-Initial release of ...
+You can also view your hue lights, groups, sensors and bridges in the tree view. Handy tip: you can view the temperature of your motion sensors.
 
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+![Tree Views](media/tree-views.png)

@@ -1,12 +1,26 @@
 {
     "name": "hue-code",
-    "displayName": "hue code",
+    "icon": "media/icon-dark-circle-128.png",
+    "galleryBanner": {
+        "color": "#ffffff",
+        "theme": "dark"
+    },
+    "displayName": "Hue Code",
     "description": "Make your hue lights come to life as you code.",
-    "version": "0.0.1",
-    "publisher": "matthewbill",
+    "version": "0.1.3",
+    "publisher": "fe26labs",
     "engines": {
         "vscode": "^1.27.0"
     },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/matthewbill/hue-code.git"
+    },
+    "keywords": [
+        "hue",
+        "code",
+        "lights"
+    ],
     "categories": [
         "Other"
     ],
