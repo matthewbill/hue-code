@@ -36,14 +36,14 @@ script:
 # - sonar-scanner
 # Git Configuration
 - git checkout master
-- git remote set-url origin https://$GIT_HUB_USER:$GIT_HUB_TOKEN@github.com/matthewbill/huecode.git
+- git remote set-url origin https://$GIT_HUB_USER:$GIT_HUB_TOKEN@github.com/matthewbill/hue-code.git
 - git config --global push.default simple
 - git config user.name "Travis CI"
 - git config user.email "travis@travis-ci.org"
 # Push to VSCE
 - npm install vsce -g
 - vsce package
-- vsce deploy -p $AZURE_TOKEN
+- vsce publish -p $AZURE_TOKEN
 # Update Repo
 - git add package.json
 - git commit -m "[skip ci]"
