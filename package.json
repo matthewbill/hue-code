@@ -35,15 +35,15 @@
                 "title": "Hue Code Menu"
             },
             {
-				"command": "huecode.refreshGroups",
-				"title": "Refresh",
-				"icon": {
-					"light": "resources/light/refresh.svg",
-					"dark": "resources/dark/refresh.svg"
-				}
+                "command": "huecode.refreshGroups",
+                "title": "Refresh",
+                "icon": {
+                    "light": "resources/light/refresh.svg",
+                    "dark": "resources/dark/refresh.svg"
+                }
             },
             {
-				"command": "huecode.viewGroupInfo",
+                "command": "huecode.viewGroupInfo",
                 "title": "View Info"
             }
         ],
@@ -59,21 +59,21 @@
         "views": {
             "hue-code": [
                 {
-					"id": "bridges",
-					"name": "Bridges"
-                },
-				{
-					"id": "groups",
-					"name": "Groups"
+                    "id": "bridges",
+                    "name": "Bridges"
                 },
                 {
-					"id": "lights",
-					"name": "Lights"
+                    "id": "groups",
+                    "name": "Groups"
                 },
                 {
-					"id": "sensors",
-					"name": "Sensors"
-				}
+                    "id": "lights",
+                    "name": "Lights"
+                },
+                {
+                    "id": "sensors",
+                    "name": "Sensors"
+                }
             ]
         }
     },
